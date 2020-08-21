@@ -1,0 +1,6 @@
+C:\Kachra_Visul Studio\Provana_Assignment\ConsumeApiClient\ConsumeApiClient\bin\ConsumeApiClient.dll
+C:\Kachra_Visul Studio\Provana_Assignment\ConsumeApiClient\ConsumeApiClient\bin\ConsumeApiClient.pdb
+C:\Kachra_Visul Studio\Provana_Assignment\ConsumeApiClient\ConsumeApiClient\obj\Debug\ConsumeApiClient.csprojResolveAssemblyReference.cache
+C:\Kachra_Visul Studio\Provana_Assignment\ConsumeApiClient\ConsumeApiClient\obj\Debug\ConsumeApiClient.dll
+C:\Kachra_Visul Studio\Provana_Assignment\ConsumeApiClient\ConsumeApiClient\obj\Debug\ConsumeApiClient.pdb
+C:\Kachra_Visul Studio\Provana_Assignment\ConsumeApiClient\ConsumeApiClient\bin\ConsumeApiClient.dll.config

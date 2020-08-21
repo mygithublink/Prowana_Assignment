@@ -1,0 +1,126 @@
+﻿
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Client Side</title>
+    <!-- Style to create button -->
+   
+    
+    <script src="resource/jquery-3.4.1.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var ulEmployees = $('#ulEmployees');
+                var tbl = $("#tblEmployee");
+                var tblBody = $("table tbody");
+                
+
+                tbl.hide();
+               // ulEmployees.hide();
+                
+                $('#btn').click(function () {
+                    //ulEmployees.empty();
+                    //tbl.empty();
+                    tblBody.empty();
+                    $.ajax({
+                        type: 'GET',
+                        //url: 'http://localhost:54826/api/employee',
+						url: 'http://localhost:54826/api/employee1',
+                        contentType: 'application/json',
+                        // Specify the authentication header
+                        // btoa() method encodes a string to Base64
+                        headers: {
+                            'Authorization': 'Basic ' + btoa('uname1' + ':' + 'pass1')
+                        },
+                        success: function (data) {
+                            alert('Success');
+                            //ulEmployees.empty();
+                            
+                            $.each(data, function (index, val) {
+
+                                var markup = "<tr><td>" + val.EmpId + "</td><td>" + val.EmpName + "</td><td>" + val.EmpMobileNo + "</td><td>"+val.EmpEmail+"</td></tr>";
+                                console.log(markup);
+                                $("table tbody").append(markup);
+
+                                //var data = val.EmpId + ' ' + val.EmpName+' '+val.EmpMobileNo+' '+val.EmpEmail;
+                                //ulEmployees.append('<li>' + data + '</li>')
+
+                            });
+                            tbl.show();
+                            //ulEmployees.show();
+                            
+                        },
+                        failure: function(){
+                                alert('Failed')
+                        },
+                        error: function () {
+                            alert('fail');
+                        },
+                    });
+
+                });
+
+                $('btnClear').click(function () {
+                    ulEmployeess.empty();
+                });
+
+            });
+
+        </script>  
+</head>
+<body>
+
+    <h1 style="color:yellow;background-color:black" >Test Web Api Client(Get, Post, Put, Delete)</h1>
+    <div>
+     <input type="button" id="btn" value="Get All Employees" /> 
+        <br /> 
+     <a href='InsertNewEmployee.html' target="_blank"> 
+        <button> 
+          Create New Employee
+        </button> 
+    </a> 
+    <br />
+
+    <a href='DeleteEmployee.html' target="_blank"> 
+        <button> 
+          Delete a employee
+        </button> 
+    </a> 
+        <br />
+
+     <a href='Update.html' target="_blank"> 
+        <button> 
+          Update detail of a Employee
+        </button> 
+    </a> 
+
+    <div id="ulEmployees">
+            <table border="1" id="tblEmployee" style="background-color:lightcyan" align="center">
+
+        <thead>
+
+            <tr>
+                <th>EmployeeId</th>
+
+                <th>EmployeeName</th>
+
+                <th>MobileNo</th>
+
+                <th>Email</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        </tbody>
+
+    </table>
+    <hr />
+    </div>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Delete</title>
+    <script src="resource/jquery-3.4.1.js"></script>
+     <script type="text/javascript">
+         $(function () {
+
+
+             $("#getDetailBtn").click(function () {
+                 //alert('Helllo');
+                 var empId = $("#empId").val();
+                 if (empId <= 0 || empId == null ) {
+                     alert('Invalid Id');
+                 }
+                 else {
+                     $.ajax({
+                         //url:http://localhost:54826/api/employee1?id=
+                         url: "http://localhost:54826/api/employee1?id=" + empId,
+                         type: "Get",
+                         contentType: "application/json",
+                         // Specify the authentication header
+                         // btoa() method encodes a string to Base64
+                         headers: {
+                             'Authorization': 'Basic ' + btoa('uname1' + ':' + 'pass1')
+                         },
+                         success: function (response) {
+                             //alert(response.EmpId);
+                             if (response.EmpId == 0) {
+                                 alert('No Record Found for this id');
+                             }
+                             else {
+                                 $("#empid").val(response.EmpId);
+                                 $("#ename").val(response.EmpName);
+                                 $("#mobile").val(response.EmpMobileNo);
+                                 $("#email").val(response.EmpEmail);
+                                 $('#deleteBtn').prop('disabled', false);
+                             }
+                         },
+                         error: function () {
+                             alert(JSON.stringify(response));
+                             //$("#empId").val('');
+                         }
+                     });
+                 }
+                
+             });
+
+
+
+             $("#deleteBtn").click(function () {
+                 alert('Helllo');
+                 var empId = $("#empid").val();
+                 $.ajax({
+				 //http://localhost:54826/api/employee?id=
+                     url: "http://localhost:54826/api/employee1?id=" + empId,
+                     type: "Delete",
+                     contentType: "application/json",
+                     // Specify the authentication header
+                     // btoa() method encodes a string to Base64
+                     headers: {
+                         'Authorization': 'Basic ' + btoa('uname1' + ':' + 'pass1')
+                     },
+                     success: function (response) {
+                         alert('Delete Successfully');
+                         $("#empId").val('');
+                         $("#empid").val('');
+                         $("#ename").val('');
+                         $("#mobile").val('');
+                         $("#email").val('');
+                         $('#deleteBtn').prop('disabled', true);
+                     },
+                     error: function () {
+                         alert('Delete Failed');
+                         $("#empId").val('');
+                         $("#empid").val('');
+                         $("#ename").val('');
+                         $("#mobile").val('');
+                         $("#email").val('');
+                         $('#deleteBtn').prop('disabled', true);
+                     }
+                 });
+             });
+
+         });
+    </script>
+</head>
+<body>
+    <div style="background-color:lightpink" align="center">
+    Enter Employee Id(For deletion)<input type="number" id="empId" min="0" max="100"/>
+    <br />
+    <input type="button" name="del" id="getDetailBtn" value="Get Employee" />
+    </div>
+
+    <div style="background-color:lightgray">
+        <br /><br />
+        Employee Id: <input type="text" name="name" id="empid" value=""  disabled="disabled"/>
+        <br /><br />
+        Employee Name: <input type="text" name="name" id="ename" value=" " disabled="disabled" />
+        <br /><br />
+        Mobile Number: <input type="text" name="mobile" id="mobile" value=" " disabled="disabled" />
+        <br /><br />
+        Email Address: <input type="text" name="email" id="email" value=" " disabled="disabled" />
+        <br /><br />
+        <input type="button" name="name" value="Delete" id="deleteBtn" disabled="disabled"/>
+    </div>
+</body>
+</html>

@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Create</title>
+            <!--<style>
+            .container {
+          width: 500px;
+          clear: both;
+        }
+
+        .container input {
+          width: 100%;
+          clear: both;
+        }
+        </style>-->
+    <script src="resource/jquery-3.4.1.js"></script>
+    <!--<script src="resource/jquery.validate.min.js"></script>-->
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+    <link href="resource/Style.css" rel="stylesheet" />
+    
+     <script type="text/javascript">
+         $(function () {
+             $("#postBtn").click(function () {
+
+
+                 $("#FormId").validate({
+
+                     // Specify validation rules
+                     rules: {
+                         // The key name on the left side is the name attribute
+                         // of an input field. Validation rules are defined
+                         // on the right side
+                         name: {
+                             required: true
+                         },
+                         mobile: {
+                             required: true,
+                         },
+                         email: {
+                             required: true,
+                             // Specify that email should be validated
+                             // by the built-in "email" rule
+                             email: true
+                         }
+
+                     },
+                     // Specify validation error messages
+                     messages: {
+                         name: "Please enter employee name",
+                         mobile: "Please enter a valid Mobile number",
+                         email: "Please enter a valid email address"
+                     }
+                     // Make sure the form is submitted to the destination defined
+                     // in the "action" attribute of the form when valid
+                     //submitHandler: function (form) {
+                     //  form.submit();
+                     //}
+                 });
+
+
+                 if (!$("#FormId").valid()) { // Not Valid
+                     alert('INVALID INPUTS');
+                     //return false;
+                 }
+                 else {
+                     var person = '{EmpName: "' + $("#ename").val() + '",' +
+                                       'EmpMobileNo:' + '"' + $("#mobile").val() + '",' +
+                                        'EmpEmail:' + '"' + $("#email").val() + '"' +
+
+                     ' }';
+
+                     alert(person);
+
+                     $.ajax({
+                         type: "POST",
+                         //http://localhost:54826/api/employee?id=
+                         url: "http://localhost:54826/api/employee1",
+                         data: person,
+                         contentType: "application/json; charset=utf-8",
+                         dataType: "json",
+                         // Specify the authentication header
+                         // btoa() method encodes a string to Base64
+                         headers: {
+                             'Authorization': 'Basic ' + btoa('uname1' + ':' + 'pass1')
+                         },
+                         success: function (response) {
+                             alert('Success');
+                             $("#ename").val('');
+                             $("#mobile").val('');
+                             $("#email").val('');
+
+                             //  alert("Hello: " + response.Name + ".\nCurrent Date and Time: " + response.DateTime);
+                         },
+                         failure: function (response) {
+                             alert('Failed');
+                             $("#ename").val('');
+                             $("#mobile").val('');
+                             $("#email").val('');
+                             //  alert(response.responseText);
+                         },
+                         error: function (response) {
+                             alert('Error')
+                             // alert(response.responseText);
+                         }
+                     });
+
+                 }
+
+             });
+         });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h3>Create New Employee</h3>
+        <form id="FormId" name="registration">
+            <label for="name">Employee Name:</label> 
+            <input type="text" name="name" id="ename" value=""  />
+            <label for="mobile">Mobile Number:</label>
+            <input type="text" name="mobile" id="mobile" value=""  />
+            <label for="email">Employee Email:</label>
+            <input type="text" name="email" id="email" value=""  />
+            <br />
+            <input type="button" id="postBtn" value="S U B M I T" class="button"/>
+        </form>
+    </div>
+</body>
+</html>
